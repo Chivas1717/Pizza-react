@@ -4,7 +4,7 @@ function PizzaBlock({ title, price, imageUrl, sizes, types }) {
   const [pizzaCounter, setPizzaCounter] = useState(0);
   const [sizeActivated, setSizeActivated] = useState(0);
   const [crustActivated, setCrustActivated] = useState(0);
-
+  // console.log('render');
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
