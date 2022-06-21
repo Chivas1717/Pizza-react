@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function Categories({ value, onClickCategory }) {
   const categories = ['All', 'Meat', 'Vegan', 'Grill', 'Hot', 'Calzone'];
