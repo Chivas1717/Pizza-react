@@ -1,6 +1,6 @@
-import { compose, configureStore } from '@reduxjs/toolkit';
-import filterReducer from './slices/filterSlice';
-console.log(filterReducer);
+import { configureStore } from '@reduxjs/toolkit';
+import filter from './slices/filterSlice';
+
 export const store = configureStore({
-  reducer: { counter: filterReducer },
+  reducer: { filter },
 });

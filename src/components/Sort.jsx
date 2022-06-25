@@ -1,13 +1,22 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSortType } from '../redux/slices/filterSlice';
 
-function Sort({ value, onClickSortType }) {
+function Sort() {
+  const sortType = useSelector((state) => state.filter.sortType);
+  const dispatch = useDispatch();
+
   const [sortOpen, setSortOpen] = useState(false);
   const sortTypes = ['rating', 'price', 'title'];
 
-  function onClickSortActivated(type) {
+  const onClickSortType = (type) => {
+    dispatch(setSortType(type));
+  };
+
+  const onClickSortActivated = (type) => {
     onClickSortType(type);
     setSortOpen(!sortOpen);
-  }
+  };
 
   return (
     <div className="sort">
@@ -24,7 +33,7 @@ function Sort({ value, onClickSortType }) {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={() => setSortOpen(!sortOpen)}>{value}</span>
+        <span onClick={() => setSortOpen(!sortOpen)}>{sortType}</span>
       </div>
       {sortOpen && (
         <div className="sort__popup">
@@ -34,7 +43,7 @@ function Sort({ value, onClickSortType }) {
                 <li
                   key={index}
                   onClick={() => onClickSortActivated(type)}
-                  className={value === type ? 'active' : ''}>
+                  className={sortType === type ? 'active' : ''}>
                   {type}
                 </li>
               );
