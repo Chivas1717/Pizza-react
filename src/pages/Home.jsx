@@ -9,6 +9,7 @@ import Pagination from '../components/Pagination';
 import { useState, useEffect, useContext } from 'react';
 import { SearchContext } from '../App';
 import { setCategoryId } from '../redux/slices/filterSlice';
+
 const Home = () => {
   const sortType = useSelector((state) => state.filter.sortType);
   const categoryId = useSelector((state) => state.filter.categoryId);
