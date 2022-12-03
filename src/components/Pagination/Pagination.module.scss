@@ -13,7 +13,16 @@
       line-height: 42px;
       border: 1px solid #fe5f1e;
       border-radius: 30px;
-      margin-right: 50px;
+      margin-right: 25px;
+      margin-left: 25px;
+      @media (max-width: 560px) {
+        margin-right: 15px;
+        margin-left: 15px;
+      }
+      @media (max-width: 450px) {
+        margin-right: 7px;
+        margin-left: 7px;
+      }
 
       &:hover {
         background-color: #fe5f1e;

@@ -1,6 +1,5 @@
 import React from 'react';
 import qs from 'qs';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Categories from '../components/Categories';
@@ -12,16 +11,16 @@ import Pagination from '../components/Pagination';
 import { useState, useEffect, useContext, useRef } from 'react';
 import { SearchContext } from '../App';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
+  const { items, status } = useSelector((state) => state.pizza);
   const { sortType, categoryId, currentPage } = useSelector((state) => state.filter);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearchParam = useRef(false);
   const isMounted = useRef(false);
   const { searchValue } = useContext(SearchContext);
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [counter, setCounter] = useState(1);
 
   const onClickCategory = (id) => {
@@ -32,22 +31,35 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
-    setIsLoading(true);
-
-    axios
-      .get(
-        `https://62a159bdcc8c0118ef49d6b2.mockapi.io/items?page=${currentPage}&limit=10&${
-          categoryId > 0 ? `category=${categoryId}` : ''
-        }&sortBy=${sortType}`,
-      )
-      .then((res) => {
-        // setTimeout(() => {
-        setItems(res.data);
-        setIsLoading(false);
-        // }, 0);
-      });
-
+  const getPizzas = async () => {
+    // axios
+    //   .get(
+    //     `https://62a159bdcc8c0118ef49d6b2.mockapi.io/items?page=${currentPage}&limit=10&${
+    //       categoryId > 0 ? `category=${categoryId}` : ''
+    //     }&sortBy=${sortType}`,
+    //   )
+    //   .then((res) => {
+    //     // setTimeout(() => {
+    //     setItems(res.data);
+    //     setIsLoading(false);
+    //     // }, 0);
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false);
+    //     throw err;
+    //   });
+    // const { data } = await axios.get(
+    //   `https://62a159bdcc8c0118ef49d6b2.mockapi.io/items?page=${currentPage}&limit=10&${
+    //     categoryId > 0 ? `category=${categoryId}` : ''
+    //   }&sortBy=${sortType}`,
+    // );
+    dispatch(
+      fetchPizzas({
+        sortType,
+        categoryId,
+        currentPage,
+      }),
+    );
     window.scrollTo(0, 0);
   };
 
@@ -67,7 +79,7 @@ const Home = () => {
     window.scroll(0, 0);
 
     if (!isSearchParam.current || counter === 2) {
-      fetchPizzas();
+      getPizzas();
     } else setCounter(counter + 1);
 
     isSearchParam.current = false;
@@ -102,7 +114,15 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+      {status == 'rejected' ? (
+        <div className="content__error-info">
+          <h2>0 pizzas found</h2>
+          <p>Refresh the page or try again later. Pitsas are coming</p>
+          <br></br>
+        </div>
+      ) : (
+        <div className="content__items">{status == 'pending' ? skeletons : pizzas}</div>
+      )}
       <Pagination value={currentPage} onChangePage={onChangePage} />
     </div>
   );
