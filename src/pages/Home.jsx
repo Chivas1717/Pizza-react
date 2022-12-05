@@ -10,17 +10,21 @@ import Pagination from '../components/Pagination';
 
 import { useState, useEffect, useContext, useRef } from 'react';
 import { SearchContext } from '../App';
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas } from '../redux/slices/pizzaSlice';
+import {
+  selectFilter,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
+import { fetchPizzas, selectPizza } from '../redux/slices/pizzaSlice';
 
 const Home = () => {
-  const { items, status } = useSelector((state) => state.pizza);
-  const { sortType, categoryId, currentPage } = useSelector((state) => state.filter);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearchParam = useRef(false);
   const isMounted = useRef(false);
-  const { searchValue } = useContext(SearchContext);
+  const { items, status } = useSelector(selectPizza);
+  const { sortType, categoryId, currentPage, searchValue } = useSelector(selectFilter);
   const [counter, setCounter] = useState(1);
 
   const onClickCategory = (id) => {

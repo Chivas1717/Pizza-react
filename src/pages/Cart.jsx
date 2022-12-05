@@ -2,15 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
-import { clearItems } from '../redux/slices/cartSlice';
+import { clearItems, selectCart } from '../redux/slices/cartSlice';
 import CartEmpty from '../components/CartEmpty';
+import { clearFilters } from '../redux/slices/filterSlice';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { totalPrice, items, totalItems } = useSelector((state) => state.cart);
+  const { totalPrice, items, totalItems } = useSelector(selectCart);
 
   const onClickClear = () => {
     if (window.confirm('Clear cart?')) dispatch(clearItems());
+  };
+
+  const onClickGoBack = () => {
+    if (window.confirm('Go back to main page?')) dispatch(clearFilters());
   };
 
   return (
@@ -105,7 +110,7 @@ const Cart = () => {
                 Total price: <b>{totalPrice}$</b>{' '}
               </span>
             </div>
-            <div className="cart__bottom-buttons">
+            <div onClick={onClickGoBack} className="cart__bottom-buttons">
               <Link to="/" className="button button--outline button--add go-back-btn">
                 <svg
                   width="8"
