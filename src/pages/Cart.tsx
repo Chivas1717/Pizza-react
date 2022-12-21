@@ -6,9 +6,10 @@ import { clearItems, selectCart } from '../redux/slices/cartSlice';
 import CartEmpty from '../components/CartEmpty';
 import { clearFilters } from '../redux/slices/filterSlice';
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items, totalItems } = useSelector(selectCart);
+  console.log(items);
 
   const onClickClear = () => {
     if (window.confirm('Clear cart?')) dispatch(clearItems());
@@ -52,7 +53,7 @@ const Cart = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              Корзина
+              Cart
             </h2>
             <div onClick={onClickClear} className="cart__clear">
               <svg
@@ -95,7 +96,7 @@ const Cart = () => {
             </div>
           </div>
           <div className="content__items">
-            {items.map((item) => {
+            {items.map((item: any) => {
               return <CartItem key={item.id} {...item} />;
             })}
           </div>
@@ -127,10 +128,10 @@ const Cart = () => {
                   />
                 </svg>
 
-                <span>Вернуться назад</span>
+                <span>Back to main page</span>
               </Link>
               <div className="button pay-btn">
-                <span>Оплатить сейчас</span>
+                <span>Pay now</span>
               </div>
             </div>
           </div>

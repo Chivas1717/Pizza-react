@@ -8,17 +8,16 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock';
 import Pagination from '../components/Pagination';
 
-import { useState, useEffect, useContext, useRef } from 'react';
-import { SearchContext } from '../App';
+import { useState, useEffect, useRef } from 'react';
 import {
-  selectFilter,
+  selectFilter, 
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizza } from '../redux/slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearchParam = useRef(false);
@@ -27,12 +26,12 @@ const Home = () => {
   const { sortType, categoryId, currentPage, searchValue } = useSelector(selectFilter);
   const [counter, setCounter] = useState(1);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -58,6 +57,7 @@ const Home = () => {
     //   }&sortBy=${sortType}`,
     // );
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         sortType,
         categoryId,
@@ -104,10 +104,10 @@ const Home = () => {
   }, [categoryId, sortType, currentPage]);
 
   const pizzas = items
-    .filter((obj) => {
+    .filter((obj: any) => {
       return obj.title.toLowerCase().includes(searchValue.toLowerCase());
     })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+    .map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
@@ -118,14 +118,14 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      {status == 'rejected' ? (
+      {status === 'rejected' ? (
         <div className="content__error-info">
           <h2>0 pizzas found</h2>
           <p>Refresh the page or try again later. Pitsas are coming</p>
           <br></br>
         </div>
       ) : (
-        <div className="content__items">{status == 'pending' ? skeletons : pizzas}</div>
+        <div className="content__items">{status === 'pending' ? skeletons : pizzas}</div>
       )}
       <Pagination value={currentPage} onChangePage={onChangePage} />
     </div>

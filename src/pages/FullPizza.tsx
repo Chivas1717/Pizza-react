@@ -1,12 +1,19 @@
 import React from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
-const FullPizza = () => {
-  const [pizza, setPizza] = useState();
+const FullPizza: React.FC = () => {
+  interface pizzaType {
+    imageUrl: string;
+    title: string;
+    sizes: string;
+  }
+
+  const [pizza, setPizza] = useState<pizzaType>();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function renderFullPizza() {
@@ -16,6 +23,7 @@ const FullPizza = () => {
         setPizza(data);
       } catch (err) {
         alert('Thiz pizza does not exist or no longer available');
+        navigate('/');
       }
     }
 
@@ -23,7 +31,7 @@ const FullPizza = () => {
   }, []);
 
   if (!pizza) {
-    return 'loading...';
+    return <>Loading...</>;
   }
 
   return (
