@@ -1,8 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import emptyCartLogo from '../assets/img/empty-cart.png';
+import { clearFilters } from '../redux/slices/filterSlice';
 
 const CartEmpty: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const onClickGoBack = () => {
+    dispatch(clearFilters());
+  };
+
   return (
     <div className="cart cart--empty">
       <h2>Cart is Empty </h2>
@@ -12,7 +20,7 @@ const CartEmpty: React.FC = () => {
         To order pizza, go to the main page.
       </p>
       <img src={emptyCartLogo} alt="Empty cart" />
-      <Link to="/" className="button button--black">
+      <Link onClick={onClickGoBack} to="/" className="button button--black">
         <span>Back to Main Page</span>
       </Link>
     </div>

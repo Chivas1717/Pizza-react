@@ -16,7 +16,7 @@ const Cart: React.FC = () => {
   };
 
   const onClickGoBack = () => {
-    if (window.confirm('Go back to main page?')) dispatch(clearFilters());
+    dispatch(clearFilters());
   };
 
   return (
@@ -92,7 +92,7 @@ const Cart: React.FC = () => {
                 />
               </svg>
 
-              <span>Очистить корзину</span>
+              <span>Clear cart</span>
             </div>
           </div>
           <div className="content__items">
@@ -111,8 +111,11 @@ const Cart: React.FC = () => {
                 Total price: <b>{totalPrice}$</b>{' '}
               </span>
             </div>
-            <div onClick={onClickGoBack} className="cart__bottom-buttons">
-              <Link to="/" className="button button--outline button--add go-back-btn">
+            <div className="cart__bottom-buttons">
+              <Link
+                onClick={onClickGoBack}
+                to="/"
+                className="button button--outline button--add go-back-btn">
                 <svg
                   width="8"
                   height="14"

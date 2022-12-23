@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { NumericLiteral } from 'typescript';
 
 type FetchPizzasParams = {
   sortType: string;
@@ -17,14 +18,27 @@ type Pizza = {
   types: number[];
 };
 
+export type SearchPizzaParams = {
+  sortType: string;
+  categoryId: number;
+  searchValue: string;
+  currentPage: number;
+};
+
 interface PizzaSliceState {
   items: Pizza[];
-  status: 'fulfilled' | 'rejected' | 'pending';
+  status: Status;
+}
+
+enum Status {
+  LOADING = 'pending',
+  SUCCESS = 'fulfilled',
+  ERROR = 'rejected',
 }
 
 const initialState: PizzaSliceState = {
   items: [],
-  status: 'pending',
+  status: Status.LOADING,
 };
 
 export const fetchPizzas = createAsyncThunk<Pizza[], FetchPizzasParams>(
@@ -51,17 +65,17 @@ export const pizzaSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchPizzas.fulfilled, (state, action) => {
       state.items = action.payload;
-      state.status = 'fulfilled';
+      state.status = Status.SUCCESS;
     });
 
     builder.addCase(fetchPizzas.rejected, (state, action) => {
       state.items = [];
-      state.status = 'rejected';
+      state.status = Status.ERROR;
     });
 
     builder.addCase(fetchPizzas.pending, (state, action) => {
       state.items = [];
-      state.status = 'pending';
+      state.status = Status.LOADING;
     });
   },
 

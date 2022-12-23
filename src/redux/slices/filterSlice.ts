@@ -40,6 +40,7 @@ export const filterSlice = createSlice({
       state.currentPage = 1;
       state.categoryId = 0;
       state.sortType = 'rating';
+      state.searchValue = '';
     },
   },
 });

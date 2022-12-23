@@ -1,7 +1,7 @@
 import React from 'react';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
@@ -10,16 +10,17 @@ import Pagination from '../components/Pagination';
 
 import { useState, useEffect, useRef } from 'react';
 import {
-  selectFilter, 
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectPizza } from '../redux/slices/pizzaSlice';
+import { fetchPizzas, SearchPizzaParams, selectPizza } from '../redux/slices/pizzaSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearchParam = useRef(false);
   const isMounted = useRef(false);
   const { items, status } = useSelector(selectPizza);
@@ -57,7 +58,6 @@ const Home: React.FC = () => {
     //   }&sortBy=${sortType}`,
     // );
     dispatch(
-      //@ts-ignore
       fetchPizzas({
         sortType,
         categoryId,
@@ -69,7 +69,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
       dispatch(
         setFilters({
           ...params,

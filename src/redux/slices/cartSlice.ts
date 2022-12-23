@@ -58,6 +58,10 @@ export const cartSlice = createSlice({
         if (findItem.count === 0) {
           if (window.confirm('Remove this item from cart?')) {
             state.items = state.items.filter((obj) => obj.id !== action.payload);
+          } else {
+            state.totalItems++;
+            state.totalPrice += findItem.price;
+            findItem.count++;
           }
         }
       }
