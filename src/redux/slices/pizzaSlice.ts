@@ -1,40 +1,7 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { NumericLiteral } from 'typescript';
-
-type FetchPizzasParams = {
-  sortType: string;
-  categoryId: number;
-  currentPage: number;
-};
-
-type Pizza = {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  types: number[];
-};
-
-export type SearchPizzaParams = {
-  sortType: string;
-  categoryId: number;
-  searchValue: string;
-  currentPage: number;
-};
-
-interface PizzaSliceState {
-  items: Pizza[];
-  status: Status;
-}
-
-enum Status {
-  LOADING = 'pending',
-  SUCCESS = 'fulfilled',
-  ERROR = 'rejected',
-}
+import { FetchPizzasParams, Pizza, PizzaSliceState, Status } from './types';
 
 const initialState: PizzaSliceState = {
   items: [],

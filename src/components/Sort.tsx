@@ -6,7 +6,7 @@ import { selectFilterSortType, setSortType } from '../redux/slices/filterSlice';
 
 // type OutsideClick = React.MouseEvent<HTMLBodyElement> & { path: Node[] };
 
-function Sort() {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
 
   const sortType: string = useSelector(selectFilterSortType);
@@ -76,6 +76,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

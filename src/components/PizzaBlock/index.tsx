@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { addItem, Cartitem, selectCartItemById } from '../../redux/slices/cartSlice';
+import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
+import { Cartitem } from '../../redux/slices/types';
 
 type PizzaBlockProps = {
   id: string;
