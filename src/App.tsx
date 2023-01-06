@@ -13,9 +13,9 @@ function App() {
       <Header />
       <div className="content">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/pizza/:id" element={<FullPizza />} />
+          <Route path="/Pizza-react/" element={<Home />} />
+          <Route path="/Pizza-react/cart" element={<Cart />} />
+          <Route path="/Pizza-react/pizza/:id" element={<FullPizza />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

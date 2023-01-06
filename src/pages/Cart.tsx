@@ -114,7 +114,7 @@ const Cart: React.FC = () => {
             <div className="cart__bottom-buttons">
               <Link
                 onClick={onClickGoBack}
-                to="/"
+                to="/Pizza-react/"
                 className="button button--outline button--add go-back-btn">
                 <svg
                   width="8"

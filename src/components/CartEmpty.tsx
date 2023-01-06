@@ -20,7 +20,7 @@ const CartEmpty: React.FC = () => {
         To order pizza, go to the main page.
       </p>
       <img src={emptyCartLogo} alt="Empty cart" />
-      <Link onClick={onClickGoBack} to="/" className="button button--black">
+      <Link onClick={onClickGoBack} to="/Pizza-react/" className="button button--black">
         <span>Back to Main Page</span>
       </Link>
     </div>
