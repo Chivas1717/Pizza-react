@@ -27,7 +27,7 @@ function Header() {
             <img width="38" src={LogoSvg} alt="Pizza logo" />
             <div>
               <h1>React Pizza</h1>
-              <p>the best pizza in Toronto...</p>
+              <p>the best pizza in Torontooo...</p>
             </div>
           </div>
         </Link>
