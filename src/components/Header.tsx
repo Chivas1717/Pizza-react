@@ -33,7 +33,7 @@ function Header() {
         </Link>
         {location.pathname === '/Pizza-react/' && <Search />}
         <div className="header__cart">
-          {location.pathname !== '/Pizza-react/cart' && (
+          {location.pathname !== '/Pizza-react/cart' && location.pathname !== '/Pizza-react/payment' && (
             <Link to="/Pizza-react/cart" className="button button--cart">
               <span>{totalPrice}$</span>
               <div className="button__delimiter"></div>

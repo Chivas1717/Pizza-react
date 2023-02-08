@@ -20,7 +20,6 @@ export const cartSlice = createSlice({
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
 
       if (findItem) {
-        // console.log(findItem);
         findItem.count++;
       } else {
         state.items.push({

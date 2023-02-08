@@ -19,6 +19,10 @@ const Cart: React.FC = () => {
     dispatch(clearFilters());
   };
 
+  const onClickPay = () => {
+
+  }
+
   return (
     <div className="container container--cart">
       {totalItems ? (
@@ -133,9 +137,11 @@ const Cart: React.FC = () => {
 
                 <span>Back to main page</span>
               </Link>
-              <div className="button pay-btn">
-                <span>Pay now</span>
-              </div>
+              <Link to="/pizza-react/payment">
+                <div className="button pay-btn" onClick={onClickPay}>
+                  <span>Pay now</span>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

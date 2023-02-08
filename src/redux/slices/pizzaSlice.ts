@@ -56,7 +56,7 @@ export const pizzaSlice = createSlice({
   //     state.items = [];
   //   },
   //   [fetchPizzas.pending]: (state) => {
-  //     state.status = 'pending';
+  //     state.status = 'pending'; 
   //     state.items = [];
   //   },
   // },

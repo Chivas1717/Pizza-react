@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,9 +27,11 @@ const Sort: React.FC = () => {
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       const _event = event as MouseEvent & {
-        path: Node[];
+        composedPath: Node[];
       };
-      if (sortRef.current && !_event.path.includes(sortRef.current)) {
+      const _target = _event.target as Node | null
+
+      if (sortRef.current && !sortRef.current.contains(_target)) {
         setSortOpen(false);
       }
     };

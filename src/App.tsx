@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import './scss/app.scss';
 import FullPizza from './pages/FullPizza';
+import Payment from "./pages/Payment";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/Pizza-react/" element={<Home />} />
           <Route path="/Pizza-react/cart" element={<Cart />} />
           <Route path="/Pizza-react/pizza/:id" element={<FullPizza />} />
+          <Route path="/Pizza-react/payment" element={<Payment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
